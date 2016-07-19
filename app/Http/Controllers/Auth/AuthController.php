@@ -6,6 +6,7 @@ use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Auth;
 use Socialite;
 
@@ -29,7 +30,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/meme';
+    protected $redirectTo = '/';
 
     /**
      * Create a new authentication controller instance.
@@ -71,7 +72,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function redirectTo()
+    public function redirectToProvider()
     {
         return Socialite::driver('facebook')->redirect();
     }

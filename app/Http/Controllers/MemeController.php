@@ -76,9 +76,10 @@ class MemeController extends Controller
     public function show()
     {
         $user = Auth::user()->id;
-        $meme = Meme::where('user_id', '=', $user)->get();
-        dd($meme);
-        return view('meme')->with('meme', $meme);
+        $meme = Meme::where('user_id', '=', $user)
+             ->orderBy('id','desc')
+            ->get();
+        return view('meme')->with('memes', $meme);
 
 
     }

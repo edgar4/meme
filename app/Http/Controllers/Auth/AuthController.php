@@ -92,9 +92,10 @@ class AuthController extends Controller
 
         $authUser = $this->findOrCreateUser($user);
 
-        Auth::login($authUser, true);
 
-        return redirect()->route('meme');
+
+        Auth::login($authUser, true);
+        return redirect()->to('/');
     }
 
     /**
@@ -106,16 +107,19 @@ class AuthController extends Controller
     private function findOrCreateUser($facebookUser)
     {
         $authUser = User::where('facebook_id', $facebookUser->id)->first();
-
         if ($authUser) {
             return $authUser;
+
+        } else {
+            return User::create([
+                'name' => $facebookUser->name,
+                'email' => $facebookUser->email,
+                'facebook_id' => $facebookUser->id,
+                'avatar' => $facebookUser->avatar
+            ]);
+
         }
 
-        return User::create([
-            'name' => $facebookUser->name,
-            'email' => $facebookUser->email,
-            'facebook_id' => $facebookUser->id,
-            'avatar' => $facebookUser->avatar
-        ]);
+
     }
 }

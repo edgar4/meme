@@ -6,7 +6,7 @@
  * Time: 11:19
  */
 
-namespace App\Providers\Classes;
+namespace App\Providers;
 
 
 class MemeGenerator

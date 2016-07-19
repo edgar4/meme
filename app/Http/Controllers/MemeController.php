@@ -29,10 +29,9 @@ class MemeController extends Controller
             'top_text' => 'required',
             'bottom_text' => 'required',
         );
-
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) {
-            return Redirect::to('/meme/')->withInput()->withErrors($validator);
+            return Redirect::to('/')->withInput()->withErrors($validator);
         } else {
             if (Input::file('image')->isValid()) {
                 $destinationPath = 'img'; // upload path
@@ -40,24 +39,35 @@ class MemeController extends Controller
                 Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
                 // sending back with message
                 Session::flash('success', 'Upload successfully');
-                $title = Input::get('title');
-                $meme->set_top_text($_POST['top_text']);
-                $meme->set_bottom_text($_POST['bottom_text']);
-                $meme->set_output_dir('./img/meme'); // default to ./ if not set
-                $meme->set_image($example_image_path);
+                Input::get('top_text');
+                $meme->clear();
+                $meme->set_top_text(Input::get('top_text'));
+                $meme->set_bottom_text(Input::get('bottom_text'));
+                $meme->set_output_dir('./img/meme/'); // default to ./ if not set
+                $meme->set_image($destinationPath . '/' . $fileName);
                 //$meme->set_watermark('./tmp/php.gif');
                 $meme->set_watemark_opacity(80);
                 $generatedMeme = $meme->generate();
-                $meme->clear();
-                return Redirect::to('meme/');
+                $this->show($generatedMeme);
             } else {
                 // sending back with error message.
                 Session::flash('error', 'uploaded file is not valid');
-                return Redirect::to('/meme');
+                return Redirect::to('/');
             }
         }
 
 
+    }
 
+    public function show($meme)
+    {
+
+        return view('meme')->with('meme',$meme);
+
+
+    }
+    public function info(){
+
+        echo phpinfo();
     }
 }

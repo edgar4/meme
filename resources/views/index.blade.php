@@ -8,14 +8,15 @@
                     <div class="panel-heading">Dashboard</div>
 
                     <div class="panel-body">
-                        {!! Form::open(array('url' => 'meme/make')) !!}
+                        {!! Form::open(array('url' => 'meme/make',
+                                              'files' => true)) !!}
                         <fieldset class="form-group">
                             <label for="text_top">caption top of meme</label>
-                            <input type="text" class="form-control" id="text_top" placeholder="">
+                            <input type="text" name="top_text" class="form-control" id="text_top" placeholder="">
                         </fieldset>
                         <fieldset class="form-group">
                             <label for="text_bottom">caption bottom of meme</label>
-                            <input type="text" class="form-control" id="text_bottom" placeholder="">
+                            <input type="text" name="bottom_text" class="form-control" id="text_bottom" placeholder="">
                         </fieldset>
                         <fieldset class="form-group">
                             <input type="file" name="image"  class="form-control"  />

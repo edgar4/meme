@@ -12,7 +12,13 @@ class CreateMemeTables extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('memes', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('user_id');
+            $table->string('meme');
+            $table->rememberToken();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -22,6 +28,6 @@ class CreateMemeTables extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('memes');
     }
 }

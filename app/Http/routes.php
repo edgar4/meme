@@ -11,6 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [
+    'uses' => 'MemeController@index',
+    'as' => 'meme_index',
+]);
+
+
+Route::group(
+    ['prefix' => 'meme',
+
+    ],
+    function () {
+        Route::get('/show', [
+            'uses' => 'AdminController@show',
+            'as' => 'meme_show',
+        ]);
+        Route::post('/make', 'CategorysController@makeMeme');
+
+    });

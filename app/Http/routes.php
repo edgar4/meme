@@ -29,3 +29,7 @@ Route::group(
         Route::post('/make', 'CategorysController@makeMeme');
 
     });
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');

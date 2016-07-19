@@ -16,6 +16,8 @@ class MemeController extends Controller
     public function index()
     {
 
+        return view('index');
+
     }
 
     public function makeMeme()
@@ -24,8 +26,8 @@ class MemeController extends Controller
 
         $rules = array(
             'image' => 'required',
-            'title' => 'required',
-            'short_description' => 'required',
+            'top_text' => 'required',
+            'bottom_text' => 'required',
         );
 
         $validator = Validator::make(Input::all(), $rules);

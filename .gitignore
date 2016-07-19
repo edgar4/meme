@@ -9,3 +9,6 @@ meme/*
 .png
 .jpg
 .gif
+img/
+!img/.keep
+!img/meme/.keep

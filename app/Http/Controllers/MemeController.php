@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Meme;
 use Illuminate\Http\Request;
 use App\Providers\MemeGenerator;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Support\Facades\Input;
 use Redirect;
@@ -19,6 +21,7 @@ class MemeController extends Controller
 
 
     }
+
     public function index()
     {
 
@@ -54,7 +57,12 @@ class MemeController extends Controller
                 //$meme->set_watermark('./tmp/php.gif');
                 $meme->set_watemark_opacity(80);
                 $generatedMeme = $meme->generate();
-                $this->show($generatedMeme);
+                Meme::create([
+                        'user_id' => Auth::user()->id,
+                        'meme' => $generatedMeme,
+                    ]
+                );
+                return redirect()->to('meme/show');
             } else {
                 // sending back with error message.
                 Session::flash('error', 'uploaded file is not valid');
@@ -65,14 +73,18 @@ class MemeController extends Controller
 
     }
 
-    public function show($meme)
+    public function show()
     {
-
-        return view('meme')->with('meme',$meme);
+        $user = Auth::user()->id;
+        $meme = Meme::where('user_id', '=', $user)->get();
+        dd($meme);
+        return view('meme')->with('meme', $meme);
 
 
     }
-    public function info(){
+
+    public function info()
+    {
 
         echo phpinfo();
     }

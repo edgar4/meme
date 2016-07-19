@@ -16,7 +16,6 @@ class CreateMemeTables extends Migration
             $table->increments('id');
             $table->string('user_id');
             $table->string('meme');
-            $table->rememberToken();
             $table->timestamps();
         });
     }

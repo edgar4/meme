@@ -8,7 +8,23 @@
                     <div class="panel-heading">Dashboard</div>
 
                     <div class="panel-body">
-                        You are logged in!
+                        {!! Form::open(array('url' => 'meme/make')) !!}
+                        <fieldset class="form-group">
+                            <label for="text_top">caption top of meme</label>
+                            <input type="text" class="form-control" id="text_top" placeholder="">
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <label for="text_bottom">caption bottom of meme</label>
+                            <input type="text" class="form-control" id="text_bottom" placeholder="">
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <input type="file" name="image"  class="form-control"  />
+                        </fieldset>
+                        <fieldset class="form-group">
+                         <input type="submit" class="btn btn-default" value="Generate meme"/>
+                        </fieldset>
+
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>

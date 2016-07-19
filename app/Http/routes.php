@@ -23,10 +23,10 @@ Route::group(
     ],
     function () {
         Route::get('/show', [
-            'uses' => 'AdminController@show',
+            'uses' => 'MemeController@show',
             'as' => 'meme_show',
         ]);
-        Route::post('/make', 'CategorysController@makeMeme');
+        Route::post('/make', 'MemeController@makeMeme');
 
     });
 

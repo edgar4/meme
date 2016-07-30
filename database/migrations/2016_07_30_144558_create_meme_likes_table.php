@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReactionsTable extends Migration
+class CreateMemeLikesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,11 @@ class CreateReactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reaction', function (Blueprint $table) {
+        Schema::create('meme_like', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->bigInteger('meme_id');
+            $table->bigInteger('user_id');
+            $table->bigInteger('reaction_id');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateReactionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('reaction');
+        Schema::drop('meme_like');
     }
 }

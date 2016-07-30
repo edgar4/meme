@@ -12,7 +12,11 @@ class CreateReactionsTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('reactions', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -22,6 +26,6 @@ class CreateReactionsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('reactions');
     }
 }

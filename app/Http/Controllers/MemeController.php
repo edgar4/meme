@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Meme;
+use App\MemeImages;
+use App\MemeRawImages;
+use App\RawImages;
 use Illuminate\Http\Request;
 use App\Providers\MemeGenerator;
 use App\Http\Requests;
@@ -24,17 +27,17 @@ class MemeController extends Controller
 
     public function index()
     {
-
-        return view('index');
+        $images = RawImages::all();
+        return view('index')->with(
+            'images', $images
+        );
 
     }
 
     public function makeMeme()
     {
-        $meme = new MemeGenerator();
 
         $rules = array(
-            'image' => 'required',
             'top_text' => 'required',
             'bottom_text' => 'required',
         );
@@ -42,32 +45,36 @@ class MemeController extends Controller
         if ($validator->fails()) {
             return Redirect::to('/')->withInput()->withErrors($validator);
         } else {
-            if (Input::file('image')->isValid()) {
-                $destinationPath = 'img'; // upload path
-                $fileName = Input::file('image')->getClientOriginalName(); // renameing image
-                Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
-                // sending back with message
-                Session::flash('success', 'Upload successfully');
-                Input::get('top_text');
-                $meme->clear();
-                $meme->set_top_text(Input::get('top_text'));
-                $meme->set_bottom_text(Input::get('bottom_text'));
-                $meme->set_output_dir('./img/meme/'); // default to ./ if not set
-                $meme->set_image($destinationPath . '/' . $fileName);
-                //$meme->set_watermark('./tmp/php.gif');
-                $meme->set_watemark_opacity(80);
-                $generatedMeme = $meme->generate();
-                Meme::create([
-                        'user_id' => Auth::user()->id,
-                        'meme' => $generatedMeme,
-                    ]
-                );
+
+            if (!empty(Input::get('gallery'))) {
+
+                $meme = 'img/' . Input::get('gallery');
+                $fileName = Input::get('gallery');
+                $generatedMeme = $this->CreateAndSaveMeme($meme);
+                $this->persitMeme($generatedMeme, $fileName, false);
                 return redirect()->to('meme/show');
             } else {
-                // sending back with error message.
-                Session::flash('error', 'uploaded file is not valid');
-                return Redirect::to('/');
+                if (Input::file('image')->isValid()) {
+                    $destinationPath = 'img'; // upload path
+                    $fileName = Input::file('image')->getClientOriginalName(); // renameing image
+                    Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
+                    // sending back with message
+                    Session::flash('success', 'Upload successfully');
+                    $imageLocation = $destinationPath . '/' . $fileName;
+                    $generatedMeme = $this->CreateAndSaveMeme($imageLocation);
+                    $this->persitMeme($generatedMeme, $fileName, true);
+                    return redirect()->to('meme/show');
+                } else {
+                    // sending back with error message.
+                    Session::flash('error', 'image file is not valid');
+                    return Redirect::to('/');
+
+
+                }
+
             }
+
+
         }
 
 
@@ -77,7 +84,7 @@ class MemeController extends Controller
     {
         $user = Auth::user()->id;
         $meme = Meme::where('user_id', '=', $user)
-             ->orderBy('id','desc')
+            ->orderBy('id', 'desc')
             ->get();
         return view('meme')->with('memes', $meme);
 
@@ -88,5 +95,37 @@ class MemeController extends Controller
     {
 
         echo phpinfo();
+    }
+
+    public function CreateAndSaveMeme($imageLocation, $text = array())
+    {
+        $meme = new MemeGenerator();
+        $meme->clear();
+        $meme->set_top_text(Input::get('top_text'));
+        $meme->set_bottom_text(Input::get('bottom_text'));
+        $meme->set_output_dir('./img/meme/'); // default to ./ if not set
+        $meme->set_image($imageLocation);
+        //$meme->set_watermark('./tmp/php.gif');
+        $meme->set_watemark_opacity(80);
+        $generatedMeme = $meme->generate();
+        return $generatedMeme;
+    }
+
+
+    public function persitMeme($generatedMeme, $fileName, $isNewMeme = true)
+    {
+        Meme::create([
+                'user_id' => Auth::user()->id,
+                'meme' => $generatedMeme,
+            ]
+        );
+        if ($isNewMeme) {
+            RawImages::create([
+                    'image' => $fileName,
+                    'tag' => Input::get('tag'),
+                ]
+            );
+        }
+
     }
 }

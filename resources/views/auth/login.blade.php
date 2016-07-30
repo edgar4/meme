@@ -8,9 +8,9 @@
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
                     <ul>
-                        <li><a class="btn btn-lg btn-info" href="auth/via/facebook">Login with facebook</a> </li>
-                        <li><a class="btn btn-lg btn-success" href="auth/via/twitter">Login with Twitter</a> </li>
-                        <li><a class="btn btn-lg btn-danger" href="auth/via/google">Login with Google</a> </li>
+                        <li><a class="btn btn-lg btn-info" href="/auth/via/facebook">Login with facebook</a> </li>
+                        <li><a class="btn btn-lg btn-success" href="/auth/via/twitter">Login with Twitter</a> </li>
+                        <li><a class="btn btn-lg btn-danger" href="/auth/via/google">Login with Google</a> </li>
                     </ul>
                     <!--<form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}

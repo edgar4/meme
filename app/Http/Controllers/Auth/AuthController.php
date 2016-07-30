@@ -80,7 +80,7 @@ class AuthController extends Controller
     {
         $platform = strtolower($platform);
         if (in_array($platform, $this->Platforms)) {
-            return Socialite::driver('facebook')->redirect();
+            return Socialite::driver($platform)->redirect();
         }
 
 
@@ -99,7 +99,7 @@ class AuthController extends Controller
             try {
                 $user = Socialite::driver($platform)->user();
             } catch (Exception $e) {
-                return redirect('auth/facebook');
+                return redirect('auth/'.$platform);
             }
 
             $authUser = $this->findOrCreateUser($user, $platform);

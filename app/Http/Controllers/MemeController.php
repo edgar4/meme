@@ -74,8 +74,9 @@ class MemeController extends Controller
                     ];
                 } else {
                     // sending back with error message.
-                    Session::flash('error', 'image file is not valid');
-                    return Redirect::to('/');
+                    return [
+                        'errro' => 'image file not valid'
+                    ];
 
 
                 }

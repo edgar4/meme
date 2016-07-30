@@ -20,7 +20,7 @@
                         </fieldset>
                         <fieldset class="form-group">
                             <label for="text_bottom">Tag Your Meme</label>
-                            <input type="text" name="bottom_text" class="form-control" id="tag"
+                            <input type="text" name="tag" class="form-control" id="tag"
                                    placeholder="#superAwesomeMeme,#MandaziTings">
                         </fieldset>
                         <fieldset class="form-group">

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Providers\MemeGenerator;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 use Validator;
 use Illuminate\Support\Facades\Input;
 use Redirect;
@@ -28,9 +29,12 @@ class MemeController extends Controller
     public function index()
     {
         $images = RawImages::all();
-        return view('index')->with(
-            'images', $images
-        );
+        $meme = Meme::all();
+        return [
+            'RawImages' => $images,
+            'meme' => $meme
+        ];
+
 
     }
 
@@ -52,7 +56,9 @@ class MemeController extends Controller
                 $fileName = Input::get('gallery');
                 $generatedMeme = $this->CreateAndSaveMeme($meme);
                 $this->persitMeme($generatedMeme, $fileName, false);
-                return redirect()->to('meme/show');
+                return [
+                    'NewMeme' => $generatedMeme
+                ];
             } else {
                 if (Input::file('image')->isValid()) {
                     $destinationPath = 'img'; // upload path
@@ -63,7 +69,9 @@ class MemeController extends Controller
                     $imageLocation = $destinationPath . '/' . $fileName;
                     $generatedMeme = $this->CreateAndSaveMeme($imageLocation);
                     $this->persitMeme($generatedMeme, $fileName, true);
-                    return redirect()->to('meme/show');
+                    return [
+                        'NewMeme' => $generatedMeme
+                    ];
                 } else {
                     // sending back with error message.
                     Session::flash('error', 'image file is not valid');
@@ -86,7 +94,9 @@ class MemeController extends Controller
         $meme = Meme::where('user_id', '=', $user)
             ->orderBy('id', 'desc')
             ->get();
-        return view('meme')->with('memes', $meme);
+        return [
+            'UserMemes' => $meme
+        ];
 
 
     }
@@ -96,7 +106,10 @@ class MemeController extends Controller
         $meme = Meme::where('id', '=', $id)
             ->orderBy('id', 'desc')
             ->get();
-        return view('single_meme')->with('memes', $meme);
+        return [
+            'SingleUserMeme' => $meme
+        ];
+
 
 
     }

@@ -12,7 +12,7 @@ class CreateMemeLikesTable extends Migration
      */
     public function up()
     {
-        Schema::create('meme_like', function (Blueprint $table) {
+        Schema::create('meme_likes', function (Blueprint $table) {
             $table->increments('id');
             $table->bigInteger('meme_id');
             $table->bigInteger('user_id');
@@ -28,6 +28,6 @@ class CreateMemeLikesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('meme_like');
+        Schema::drop('meme_likes');
     }
 }

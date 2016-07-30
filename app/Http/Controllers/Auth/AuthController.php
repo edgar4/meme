@@ -118,7 +118,10 @@ class AuthController extends Controller
     private function findOrCreateUser($user,$platfrom)
     {
         $column = $platfrom.'_id';
+
+        dd($user);
         $authUser = User::where($column, $user->id)->first();
+
         if ($authUser) {
             return $authUser;
 
@@ -128,7 +131,7 @@ class AuthController extends Controller
                 return User::create([
                     'name' => $user->name,
                     'email' => $user->email,
-                    'facebook_id' => $user->id,
+                    'twitter_id' => $user->id,
                     'avatar' => $user->avatar_original
                 ]);
 

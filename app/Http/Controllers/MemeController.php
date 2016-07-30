@@ -91,6 +91,16 @@ class MemeController extends Controller
 
     }
 
+    public function singleMeme($id)
+    {
+        $meme = Meme::where('id', '=', $id)
+            ->orderBy('id', 'desc')
+            ->get();
+        return view('single_meme')->with('memes', $meme);
+
+
+    }
+
     public function info()
     {
 

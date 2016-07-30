@@ -11,17 +11,13 @@
                         <?php $i = 0;?>
                         @foreach($memes as $meme)
 
-                            @if($i ==0)
-
                                 <div class="col-md-6">
-                                    <li><a href="{{ url('/memes/'.$meme->id) }}"> <img src="/img/meme/{{$meme->meme}}" class="img-responsive"/></a></li>
+                                    <a href="{{ url('/memes/'.$meme->id) }}"> <img src="/img/meme/{{$meme->meme}}" class="img-responsive"/></a>
+
                                 </div>
 
 
-                            @else
-                                <li class="well"><a href="{{ url('/memes/'.$meme->id) }}"><img src="/img/meme/{{$meme->meme}}" width="100" height="100"/></a></li>
-                            @endif
-                            <?php $i++;?>
+
                         @endforeach
                     </ul>
                 </div>

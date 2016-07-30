@@ -28,11 +28,14 @@ Route::group(
         ]);
         Route::post('/make', 'MemeController@makeMeme');
 
+        Route::get('/{id}', 'MemeController@singleMeme');
+
     });
 
 Route::auth();
 
 Route::get('/info', 'MemeController@info');
+
 
 Route::get('auth/via/{platform}', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/{platform}/callback', 'Auth\AuthController@handleProviderCallback');

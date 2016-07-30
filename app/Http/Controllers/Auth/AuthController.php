@@ -99,7 +99,7 @@ class AuthController extends Controller
             try {
                 $user = Socialite::driver($platform)->user();
             } catch (Exception $e) {
-                return redirect('auth/'.$platform);
+                return redirect('auth/' . $platform);
             }
 
             $authUser = $this->findOrCreateUser($user, $platform);
@@ -115,11 +115,9 @@ class AuthController extends Controller
      * @param $facebookUser
      * @return User
      */
-    private function findOrCreateUser($user,$platfrom)
+    private function findOrCreateUser($user, $platfrom)
     {
-        $column = $platfrom.'_id';
-
-        dd($user);
+        $column = $platfrom . '_id';
         $authUser = User::where($column, $user->id)->first();
 
         if ($authUser) {
@@ -127,7 +125,7 @@ class AuthController extends Controller
 
         } else {
 
-            if($platfrom == 'twitter'){
+            if ($platfrom == 'twitter') {
                 return User::create([
                     'name' => $user->name,
                     'email' => $user->email,
@@ -135,9 +133,17 @@ class AuthController extends Controller
                     'avatar' => $user->avatar_original
                 ]);
 
-            }elseif($platfrom =='google'){
+            } elseif ($platfrom == 'google') {
 
-            }else{
+                return User::create([
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'google_id' => $user->id,
+                    'avatar' => $user->avatar
+                ]);
+
+
+            } else {
                 return User::create([
                     'name' => $user->name,
                     'email' => $user->email,

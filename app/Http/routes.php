@@ -34,5 +34,7 @@ Route::auth();
 
 Route::get('/info', 'MemeController@info');
 
-Route::get('auth/facebook', 'Auth\AuthController@redirectToProvider');
-Route::get('auth/facebook/callback', 'Auth\AuthController@handleProviderCallback');
+Route::get('auth/via/{platform}', 'Auth\AuthController@redirectToProvider');
+Route::get('auth/{platform}/callback', 'Auth\AuthController@handleProviderCallback');
+
+

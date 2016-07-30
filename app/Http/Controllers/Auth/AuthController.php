@@ -32,6 +32,8 @@ class AuthController extends Controller
      */
     protected $redirectTo = '/';
 
+    protected $Platforms;
+
     /**
      * Create a new authentication controller instance.
      *
@@ -40,6 +42,8 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+
+        $this->Platforms = array('facebook', 'google', 'twitter');
     }
 
     /**
@@ -72,9 +76,14 @@ class AuthController extends Controller
         ]);
     }
 
-    public function redirectToProvider()
+    public function redirectToProvider($platform)
     {
-        return Socialite::driver('facebook')->redirect();
+        $platform = strtolower($platform);
+        if (in_array($platform, $this->Platforms)) {
+            return Socialite::driver('facebook')->redirect();
+        }
+
+
     }
 
     /**
@@ -82,17 +91,19 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function handleProviderCallback()
+    public function handleProviderCallback($platform)
     {
-        try {
-            $user = Socialite::driver('facebook')->user();
-        } catch (Exception $e) {
-            return redirect('auth/facebook');
+
+        $platform = strtolower($platform);
+        if (in_array($platform, $this->Platforms)) {
+            try {
+                $user = Socialite::driver($platform)->user();
+            } catch (Exception $e) {
+                return redirect('auth/facebook');
+            }
+
+            $authUser = $this->findOrCreateUser($user, $platform);
         }
-
-        $authUser = $this->findOrCreateUser($user);
-
-
 
         Auth::login($authUser, true);
         return redirect()->to('/');
@@ -104,19 +115,34 @@ class AuthController extends Controller
      * @param $facebookUser
      * @return User
      */
-    private function findOrCreateUser($facebookUser)
+    private function findOrCreateUser($user,$platfrom)
     {
-        $authUser = User::where('facebook_id', $facebookUser->id)->first();
+        $column = $platfrom.'_id';
+        $authUser = User::where($column, $user->id)->first();
         if ($authUser) {
             return $authUser;
 
         } else {
-            return User::create([
-                'name' => $facebookUser->name,
-                'email' => $facebookUser->email,
-                'facebook_id' => $facebookUser->id,
-                'avatar' => $facebookUser->avatar
-            ]);
+
+            if($platfrom == 'twitter'){
+                return User::create([
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'facebook_id' => $user->id,
+                    'avatar' => $user->avatar_original
+                ]);
+
+            }elseif($platfrom =='google'){
+
+            }else{
+                return User::create([
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'facebook_id' => $user->id,
+                    'avatar' => $user->avatar
+                ]);
+
+            }
 
         }
 

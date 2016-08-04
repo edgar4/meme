@@ -12,5 +12,38 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.sass('app.scss');
+    mix.sass('app.scss')
+
+
+
+    .scripts([
+        "jquery.min.js",
+        "angular/angular.min.js",
+        "semantic.min.js",
+        "main.js",
+        "app/app.js"
+    ], 'public/js/bundle.js')
+
+
+
+    .styles([
+    	"semantic-ui/semantic.min.css"
+    ], 'public/css/styles.css')
+
+
+
+    .version([
+    	'public/js/bundle.js',
+    	'public/css/styles.css',
+    	'public/css/app.css'
+    ])
+
+
+    .copy('resources/assets/img', 'public/img')
+
+    .copy('resources/assets/css/semantic-ui/themes', 'public/build/css/themes')
+
+    .copy('resources/assets/js/app/memes.json', 'public/js/memes.json')
+
+    .copy('resources/assets/js/app/templates', 'public/js/templates');
 });

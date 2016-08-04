@@ -12,32 +12,39 @@
 */
 
 Route::get('/', [
-    'uses' => 'MemeController@index',
+    'uses' => 'FrontController@index',
     'as' => 'meme_index',
 ]);
 
 
-Route::group(
-    ['prefix' => 'meme',
+Route::group(['prefix' => 'memes'],function () {
 
-    ],
-    function () {
-        Route::get('/show', [
-            'uses' => 'MemeController@show',
-            'as' => 'meme_show',
-        ]);
-        Route::post('/make', 'MemeController@makeMeme');
+	// Routes for creating new meme
+    Route::get('/new', ['uses' => 'FrontController@createMeme', 'as' => 'get_new_meme']);
 
-        Route::get('/{id}', 'MemeController@singleMeme');
+    Route::post('/new', ['uses' => 'MemeController@createMeme', 'as' => 'post_new_meme']);
 
-    });
+
+    // Routes for retrieving memes
+    Route::get('/{id}', [ 'uses' => 'MemeController@singleMeme', 'as' => 'get_single_meme' ]);
+
+
+
+    Route::get('/show', [
+        'uses' => 'MemeController@show',
+        'as' => 'meme_show',
+    ]);
+
+    
+
+});
 
 Route::auth();
 
 Route::get('/info', 'MemeController@info');
 
 
-Route::get('auth/via/{platform}', 'Auth\AuthController@redirectToProvider');
-Route::get('auth/{platform}/callback', 'Auth\AuthController@handleProviderCallback');
+Route::get('auth/via/{platform}', [ 'uses' => 'Auth\AuthController@redirectToProvider', 'as' => 'auth_login_via' ]);
+Route::get('auth/{platform}/callback', [ 'uses' => 'Auth\AuthController@handleProviderCallback', 'as' => 'auth_login_via_platform_callback' ]);
 
 

@@ -38,7 +38,7 @@ class MemeController extends Controller
 
     }
 
-    public function makeMeme()
+    public function createMeme()
     {
 
         $rules = array(

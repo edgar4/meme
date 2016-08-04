@@ -6,8 +6,8 @@
           <div class="column">
             <!-- Main Content -->
             <div class="main-content">
-              <div class="ui stackable grid container gallery" ng-app="meme-royal-gallery" ng-controller="GalleryController">
-                <div class="five wide column" ng-repeat="meme in memes">
+              <div class="ui container gallery" ng-app="meme-royal-gallery" ng-controller="GalleryController">
+                <div class="meme-container" ng-repeat="meme in memes">
                   <mr-meme meme="meme"></mr-meme>
                 </div>
               </div>

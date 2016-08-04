@@ -18,10 +18,12 @@ elixir(function(mix) {
 
     .scripts([
         "jquery.min.js",
-        "angular/angular.min.js",
+        "masonry.pkgd.min.js",    
         "semantic.min.js",
+        "angular/angular.min.js",        
         "main.js",
-        "app/app.js"
+        "app/app.js",
+        "gallery.js"
     ], 'public/js/bundle.js')
 
 

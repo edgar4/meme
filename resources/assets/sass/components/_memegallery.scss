@@ -1,3 +1,6 @@
+.gallery {
+	padding-bottom: 5rem;
+}
 .icon.meme-action {
   font-size: 1.25rem !important;
 }
@@ -30,4 +33,10 @@
 
 .meme-share-action:hover {
   color: teal;
+}
+
+.meme-container {
+	margin: .25rem;
+	float: left;
+	width: 365px;
 }

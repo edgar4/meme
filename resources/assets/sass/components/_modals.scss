@@ -1,0 +1,15 @@
+.modal-meme-info {
+  float: left;
+  padding: .5rem;
+}
+
+.modal-meme-info .meme-tag {
+  font-size: 1.125rem;
+}
+
+#meme-share-modal .content,
+#meme-share-modal .header,
+#meme-login-modal .content,
+#meme-login-modal .header {
+  text-align: center;
+}

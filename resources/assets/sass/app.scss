@@ -1,78 +1,13 @@
-.wrapper {
-  position: relative;
-}
+@import "components/navigation";
 
-.ui.secondary.menu {
-  background: #fff;
-}
+@import "components/modals";
 
-.main-content {
-  position: relative;
-  top: 4rem;
-  margin-bottom: 8rem;
-}
+@import "components/imagegallery";
 
+@import "components/memegallery";
 
-.modal-meme-info {
-  float: left;
-  padding: .5rem;
-}
-
-.modal-meme-info .meme-tag {
-  font-size: 1.125rem;
-}
-
-#meme-share-modal .content,
-#meme-share-modal .header,
-#meme-login-modal .content,
-#meme-login-modal .header {
-  text-align: center;
-}
-
-.icon.meme-action {
-  font-size: 1.25rem !important;
-}
-
-.main-footer {
-}
-
-
-.ui.stackable.grid.container.gallery > .column {
-  padding: 2px !important;
-}
-
-.ui.one.column.stackable.grid.main-grid > .column {
-  padding: 0 !important;
-}
-
-/*.ui.card.meme {
-  border-radius: 0px !important;
-}*/
-
-.ui.fluid.link.card.meme > .image {
-  border-radius: 0px !important;
-  position: relative;
-}
-
-.ui.fluid.link.card.meme {
-  border-radius: 0px !important;
-}
-
-.meme-action {
-
-}
-
-.meme-share-action:hover {
-  color: teal;
-}
-
-input[type="file"] {
-  width: 100%;
-  display: block;
-  text-align: center;
-  background-color: teal;
-  padding: 1rem;
-}
-
+@import "structure/layout";
 
 @import "pages/login";
+
+@import "pages/creatememe";

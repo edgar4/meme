@@ -1,13 +1,5 @@
-.wrapper {
-  position: relative; }
-
 .ui.secondary.menu {
   background: #fff; }
-
-.main-content {
-  position: relative;
-  top: 4rem;
-  margin-bottom: 8rem; }
 
 .modal-meme-info {
   float: left;
@@ -44,16 +36,24 @@
 .meme-share-action:hover {
   color: teal; }
 
+.wrapper {
+  position: relative; }
+
+.main-content {
+  position: relative;
+  top: 4rem;
+  margin-bottom: 8rem; }
+
+.main-content.login {
+  top: 16rem; }
+  .main-content.login .content {
+    text-align: center; }
+
 input[type="file"] {
   width: 100%;
   display: block;
   text-align: center;
   background-color: teal;
   padding: 1rem; }
-
-.main-content.login {
-  top: 16rem; }
-  .main-content.login .content {
-    text-align: center; }
 
 /*# sourceMappingURL=app.css.map */

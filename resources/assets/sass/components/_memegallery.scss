@@ -1,0 +1,33 @@
+.icon.meme-action {
+  font-size: 1.25rem !important;
+}
+
+
+.ui.stackable.grid.container.gallery > .column {
+  padding: 2px !important;
+}
+
+.ui.one.column.stackable.grid.main-grid > .column {
+  padding: 0 !important;
+}
+
+/*.ui.card.meme {
+  border-radius: 0px !important;
+}*/
+
+.ui.fluid.link.card.meme > .image {
+  border-radius: 0px !important;
+  position: relative;
+}
+
+.ui.fluid.link.card.meme {
+  border-radius: 0px !important;
+}
+
+.meme-action {
+
+}
+
+.meme-share-action:hover {
+  color: teal;
+}

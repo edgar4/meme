@@ -176,7 +176,7 @@ class MemeController extends Controller
     }
 
 
-    public function persitMeme($generatedMeme, $fileName, ,$dimen,$isNewMeme = true)
+    public function persitMeme($generatedMeme, $fileName,$dimen,$isNewMeme = true)
     {
         Meme::create([
                 'user_id' => Auth::user()->id,

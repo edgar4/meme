@@ -15,7 +15,7 @@ Route::get('/', [
     'uses' => 'MemeController@index',
     'as' => 'meme_index',
 ]);
-
+Route::get('/raw', 'MemeController@rawImages');
 
 Route::group(
     ['prefix' => 'meme',
@@ -29,6 +29,7 @@ Route::group(
         Route::post('/make', 'MemeController@makeMeme');
 
         Route::get('/{id}', 'MemeController@singleMeme');
+        Route::get('/likes/{id}', 'MemeController@memeLike');
 
     });
 

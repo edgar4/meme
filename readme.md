@@ -2,8 +2,8 @@
 Blant instruction to the meme json responses
 ## /
  this returns a Json resonse with  with
- 1. All meme
- 2. All   none memefied images
+ 1. All meme details
+ 2. 
 
 ##/meme/show
 returns all meme belonging to a user {uses session to achieve this }
@@ -25,3 +25,11 @@ login in user via socials
     'bottom_text' => ''
     'tag'   =>
  }
+
+## /raw
+ will now return raw images , i have moved this from the main / as it dint make much sense to be there
+ 
+## POST /meme/like{id}
+  post expects a meme_id key  and will increment  that meme's likes by one
+ 
+ 

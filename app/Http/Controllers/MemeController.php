@@ -31,8 +31,18 @@ class MemeController extends Controller
         $images = RawImages::all();
         $meme = Meme::all();
         return [
-            'RawImages' => $images,
             'meme' => $meme
+        ];
+
+
+    }
+
+
+    public function rawImages()
+    {
+        $images = RawImages::all();
+        return [
+            'RawImages' => $images,
         ];
 
 
@@ -75,7 +85,7 @@ class MemeController extends Controller
                 } else {
                     // sending back with error message.
                     return [
-                        'errro' => 'image file not valid'
+                        'error' => 'image file not valid'
                     ];
 
 
@@ -112,7 +122,31 @@ class MemeController extends Controller
         ];
 
 
+    }
 
+    public function memeLike($id)
+    {
+
+
+        $rules = array(
+            'meme_id' =>'required|numeric'
+        );
+        $validator = Validator::make(Input::all(), $rules);
+        if ($validator->fails()) {
+            return [
+                'error' => 'Request Not Valid'
+            ];
+        } else {
+            $id = Input::get('meme_id');
+            $likes = Meme::where('id', $id)->first();
+            $likesPlusOne = $likes->likes + 1;
+            Meme::where('id', $id)
+                ->update(['likes' => $likesPlusOne]);
+
+        }
+        return [
+            'success' => 'likes added'
+        ];
     }
 
     public function info()

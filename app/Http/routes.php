@@ -29,7 +29,7 @@ Route::group(
         Route::post('/make', 'MemeController@makeMeme');
 
         Route::get('/{id}', 'MemeController@singleMeme');
-        Route::get('/likes/{id}', 'MemeController@memeLike');
+        Route::post('/likes', 'MemeController@memeLike');
 
     });
 

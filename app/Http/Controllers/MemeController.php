@@ -181,13 +181,14 @@ class MemeController extends Controller
         Meme::create([
                 'user_id' => Auth::user()->id,
                 'meme' => $generatedMeme,
+                'dimen' => json_encode($dimen)
             ]
         );
         if ($isNewMeme) {
             RawImages::create([
                     'image' => $fileName,
                     'tag' => Input::get('tag'),
-                    'dimen' => serialize($dimen)
+
                 ]
             );
         }

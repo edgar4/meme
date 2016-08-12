@@ -3,7 +3,7 @@ Blant instruction to the meme json responses
 ## /
  this returns a Json resonse with  with
  1. All meme details
- 2. 
+ 2. dimen key is a json object containing width and height of meme
 
 ##/meme/show
 returns all meme belonging to a user {uses session to achieve this }

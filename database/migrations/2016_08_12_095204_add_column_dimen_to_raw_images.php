@@ -7,7 +7,7 @@ class AddColumnDimenToRawImages extends Migration
 {
     public function up()
     {
-        Schema::table('raw_images', function ($table) {
+        Schema::table('memes', function ($table) {
             $table->string('dimen');
         });
     }
@@ -19,7 +19,7 @@ class AddColumnDimenToRawImages extends Migration
      */
     public function down()
     {
-        Schema::table('raw_images', function ($table) {
+        Schema::table('memes', function ($table) {
             $table->dropColumn('dimen');
         });
     }

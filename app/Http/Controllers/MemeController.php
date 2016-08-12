@@ -78,7 +78,13 @@ class MemeController extends Controller
                     Session::flash('success', 'Upload successfully');
                     $imageLocation = $destinationPath . '/' . $fileName;
                     $generatedMeme = $this->CreateAndSaveMeme($imageLocation);
-                    $this->persitMeme($generatedMeme, $fileName, true);
+                    list($width, $height) = getimagesize($imageLocation);
+                    $dimen = array(
+                        'width' =>$width,
+                        'height' =>$height
+                    );
+
+                    $this->persitMeme($generatedMeme, $fileName,$dimen, true);
                     return [
                         'NewMeme' => $generatedMeme
                     ];
@@ -129,7 +135,7 @@ class MemeController extends Controller
 
 
         $rules = array(
-            'meme_id' =>'required|numeric'
+            'meme_id' => 'required|numeric'
         );
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) {
@@ -170,7 +176,7 @@ class MemeController extends Controller
     }
 
 
-    public function persitMeme($generatedMeme, $fileName, $isNewMeme = true)
+    public function persitMeme($generatedMeme, $fileName, ,$dimen,$isNewMeme = true)
     {
         Meme::create([
                 'user_id' => Auth::user()->id,
@@ -181,6 +187,7 @@ class MemeController extends Controller
             RawImages::create([
                     'image' => $fileName,
                     'tag' => Input::get('tag'),
+                    'dimen' => serialize($dimen)
                 ]
             );
         }
